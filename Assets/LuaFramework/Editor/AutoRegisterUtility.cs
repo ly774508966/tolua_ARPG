@@ -10,26 +10,48 @@ public class AutoRegisterUtility : EditorWindow {
     int capacity = 0;
     string capacityText = "0";
 
-    string defineLuaPath = Application.dataPath + "/LuaFramework/Lua/Common/define.Lua";
-    string ctrlManagerLuaPath = Application.dataPath + "/LuaFramework/Lua/Logic/CtrlManager.Lua";
-    string gameLuaPath = Application.dataPath + "/LuaFramework/Lua/Logic/Game.Lua";
+    string defineLuaPath = "";
+    string ctrlManagerLuaPath = "";
+    string gameLuaPath = "";
     string startupPanel = "";
 
-    string targetPanelLuaPath = Application.dataPath + "/LuaFramework/Lua/View/";
-    string targetCtrlLuaPath = Application.dataPath + "/LuaFramework/Lua/Controller/";
+    string targetPanelLuaPath = "";
+    string targetCtrlLuaPath = "";
 
     //下面两个路径要根据自身情况修改
-    string panelLuaPath = @"D:\Program Files\Unity5.3.2\Unity\Editor\Data\Resources\ScriptTemplates\88-ToLua# Panel Script-Panel.lua.txt";
-    string ctrlLuaPath = @"D:\Program Files\Unity5.3.2\Unity\Editor\Data\Resources\ScriptTemplates\89-ToLua# Ctrl Script-Ctrl.lua.txt";
+    string panelLuaPath = "";
+    string ctrlLuaPath = "";
 
-    string resourceBuildPath = Application.dataPath + "/LuaFramework/Examples/Builds/";
-
-    [MenuItem("LuaFramework/AutoRegister")]
-    static void SetAssetBundleNameExtension()
+    string resourceBuildPath = "";
+    void OnEnable()
     {
-        EditorWindow.GetWindow<AutoRegisterUtility>();
+        defineLuaPath = Application.dataPath + "/LuaFramework/Lua/Common/define.Lua";
+        ctrlManagerLuaPath = Application.dataPath + "/LuaFramework/Lua/Logic/CtrlManager.Lua";
+        gameLuaPath = Application.dataPath + "/LuaFramework/Lua/Logic/Game.Lua";
+        startupPanel = "";
+
+        targetPanelLuaPath = Application.dataPath + "/LuaFramework/Lua/View/";
+        targetCtrlLuaPath = Application.dataPath + "/LuaFramework/Lua/Controller/";
+
+        //下面两个路径要根据自身情况修改
+        panelLuaPath = @"D:\Program Files\Unity5.3.2\Unity\Editor\Data\Resources\ScriptTemplates\88-ToLua# Panel Script-Panel.lua.txt";
+        ctrlLuaPath = @"D:\Program Files\Unity5.3.2\Unity\Editor\Data\Resources\ScriptTemplates\89-ToLua# Ctrl Script-Ctrl.lua.txt";
+
+        resourceBuildPath = Application.dataPath + "/LuaFramework/Examples/Builds/";
     }
 
+    [MenuItem("LuaFramework/AutoRegister")]
+    static void Init()
+    {
+        // Get existing open window or if none, make a new one:
+        AutoRegisterUtility window = (AutoRegisterUtility)EditorWindow.GetWindow(typeof(AutoRegisterUtility));
+        window.Show();
+    }
+    /*static void SetAssetBundleNameExtension()
+    {
+        EditorWindow.GetWindow<AutoRegisterUtility>();
+    }*/
+    
     void OnGUI()
     {
         EditorGUILayout.BeginHorizontal();
